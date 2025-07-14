@@ -24,12 +24,12 @@ export default function Stars({ totalOfStars }: StarsProps) {
     const isHalfFilled = starNumber - totalOfStars === 0.5;
 
     if (isFilled) {
-      return <Star weight="fill" />;
+      return <Star key={index} weight="fill" />;
     }
     if (isHalfFilled) {
-      return <StarHalf weight="fill" />;
+      return <StarHalf key={index} weight="fill" />;
     }
-    return <Star />;
+    return <Star key={index} />;
   });
 
   return <StarsContainer>{stars}</StarsContainer>;
