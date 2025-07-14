@@ -2,10 +2,7 @@ import { styled } from "@/styles";
 
 export const SideBarContainer = styled("aside", {
   display: "grid",
-  flexDirection: "column",
   gridTemplateRows: "auto 1fr auto",
-  alignItems: "center",
-  justifyContent: "center",
 
   width: "14.5rem",
   borderRadius: 12,
@@ -17,11 +14,69 @@ export const SideBarContainer = styled("aside", {
 
 export const SideBarHeader = styled("div", {});
 
-export const SideBarBody = styled("div", {});
+export const SideBarBody = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "start",
+
+  margin: "$10 0",
+});
+
+export const SideBarItem = styled("button", {
+  all: "unset",
+  display: "flex",
+  alignItems: "center",
+  gap: "$3",
+  width: "100%",
+
+  cursor: "pointer",
+  color: "$gray-400",
+
+  padding: "$3 $5",
+
+  "&:hover": {
+    color: "$gray-100",
+  },
+
+  span: {
+    fontSize: "$sm",
+    fontWeight: "$regular",
+  },
+
+  variants: {
+    active: {
+      true: {
+        position: "relative",
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: "4px",
+          borderRadius: "999px",
+          background: "$gradient-vertical",
+        },
+        color: "$gray-100",
+      },
+      false: {},
+    },
+  },
+
+  defaultVariants: {
+    active: false,
+  },
+});
 
 export const SideBarFooter = styled("div", {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
+
+  button: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
