@@ -3,16 +3,12 @@ import { ComponentProps, ElementType } from "react";
 
 export const Button = styled("button", {
   all: "unset",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "start",
 
   padding: "0 $4",
   borderRadius: "$md",
   gap: "$5",
 
   width: "100%",
-  // height: "4.5rem",
 
   fontWeight: "bold",
   color: "$gray-200",
