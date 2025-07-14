@@ -57,4 +57,10 @@ export const FormButtons = styled("div", {
     width: "32px",
     height: "32px",
   },
+
+  button:{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "start",
+  }
 });
