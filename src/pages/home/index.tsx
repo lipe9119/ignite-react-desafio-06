@@ -3,11 +3,14 @@ import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
 import { CaretRight, ChartLineUp } from "phosphor-react";
 import { ReactElement } from "react";
+import LastReadCard from "./LastReadCard";
 import PopularCard from "./PopularCard";
 import RecentCard from "./RecentCard";
 import {
   HomeContainer,
   HomeContent,
+  LastRead,
+  LastReadHeader,
   Populars,
   PopularsContent,
   PopularsHeader,
@@ -16,6 +19,8 @@ import {
 } from "./styles";
 
 export default function Home() {
+  const isLoged = true;
+
   return (
     <HomeContainer>
       <PageHeader>
@@ -24,13 +29,29 @@ export default function Home() {
       </PageHeader>
 
       <HomeContent>
-        <Recents>
-          <div>Avaliações mais recentes</div>
+        <div>
+          {isLoged && (
+            <LastRead>
+              <LastReadHeader>
+                <span>Sua última leitura</span>
+                <Link href="/profile">
+                  Ver todos
+                  <CaretRight size={16} />
+                </Link>
+              </LastReadHeader>
 
-          <RecentsContent>
-            <RecentCard />
-          </RecentsContent>
-        </Recents>
+              <LastReadCard />
+            </LastRead>
+          )}
+
+          <Recents>
+            <div>Avaliações mais recentes</div>
+
+            <RecentsContent>
+              <RecentCard />
+            </RecentsContent>
+          </Recents>
+        </div>
 
         <Populars>
           <PopularsHeader>
