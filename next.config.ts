@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   pageExtensions: ["page.tsx", "api.ts", "api.tsx"],
+  images: {
+    domains: ["github.com"],
+  },
 };
 
 export default nextConfig;
