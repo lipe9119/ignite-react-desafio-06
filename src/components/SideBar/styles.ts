@@ -75,8 +75,32 @@ export const SideBarFooter = styled("div", {
   justifyContent: "center",
 
   button: {
+    all: "unset",
+
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    gap: "$5",
+
+    width: "100%",
+  },
+
+  variants: {
+    isLoged: {
+      true: {
+        fontSize: "$md",
+
+        svg: {
+          color: "red",
+        },
+      },
+      false: {
+        fontSize: "$lg",
+        fontWeight: "$bold",
+        svg: {
+          color: "$green-100",
+        },
+      },
+    },
   },
 });

@@ -1,18 +1,23 @@
 import Image from "next/image";
-import { Binoculars, ChartLineUp, SignIn, User } from "phosphor-react";
+import { Binoculars, ChartLineUp, SignIn, SignOut, User } from "phosphor-react";
 
 import { SideBarBody, SideBarContainer, SideBarFooter, SideBarHeader, SideBarItem } from "./styles";
 
 import logo from "@/assets/logo.png";
 import { useRouter } from "next/router";
-import { Button } from "../Button";
+import Avatar from "../Avatar";
 
 export default function SideBar() {
   const router = useRouter();
   const pathname = router.pathname;
+  const isLoged = true;
 
   function handleNavigate(path: string) {
     router.push(path);
+  }
+
+  function handleLogout() {
+    console.log("logout");
   }
 
   return (
@@ -38,10 +43,18 @@ export default function SideBar() {
         </SideBarItem>
       </SideBarBody>
 
-      <SideBarFooter>
-        <Button variant="ouline" size="md" onClick={() => handleNavigate("/login")}>
-          Fazer login <SignIn size={24} />
-        </Button>
+      <SideBarFooter isLoged={isLoged}>
+        {isLoged ? (
+          <button onClick={handleLogout}>
+            <Avatar alt="" size="sm" src="https://github.com/dornelles08.png" />
+            Felipe
+            <SignOut size={28} />
+          </button>
+        ) : (
+          <button onClick={() => handleNavigate("/login")}>
+            Fazer login <SignIn size={24} />
+          </button>
+        )}
       </SideBarFooter>
     </SideBarContainer>
   );
