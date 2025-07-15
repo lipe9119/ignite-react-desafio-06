@@ -1,16 +1,59 @@
 import { DefaultLayout } from "@/components/DefaultLayout";
+import ExplorerCard from "@/components/ExplorerCard";
+import Input from "@/components/Input";
+import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
 import { Binoculars } from "phosphor-react";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
+import { BookList, ExplorerContent, ExplorerHeader, Filter, FiltersContainer } from "./styles";
+
+const filters = {
+  all: "Tudo",
+  computing: "Computação",
+  education: "Educação",
+  fantasy: "Fantasia",
+  scienceFiction: "Ficção científica",
+  horror: "Horror",
+  comics: "HQs",
+  suspense: "Suspense",
+};
 
 export default function Explore() {
+  const [filter, setFilter] = useState("all");
+
+  function handleFilterClick(newFilter: string) {
+    setFilter(newFilter);
+  }
+
   return (
-    <div>
-      <PageHeader>
-        <Binoculars size={32} />
-        <span>Explorar</span>
-      </PageHeader>
-    </div>
+    <PageContainer>
+      <ExplorerHeader>
+        <PageHeader>
+          <Binoculars size={32} />
+          <span>Explorar</span>
+        </PageHeader>
+
+        <Input placeholder="Buscar livro ou autor" />
+      </ExplorerHeader>
+
+      <ExplorerContent>
+        <FiltersContainer>
+          {Object.entries(filters).map(([key, value]) => (
+            <Filter key={key} onClick={() => handleFilterClick(key)} active={filter === key}>
+              {value}
+            </Filter>
+          ))}
+        </FiltersContainer>
+
+        <BookList>
+          <ExplorerCard lido />
+          <ExplorerCard />
+          <ExplorerCard />
+          <ExplorerCard />
+          <ExplorerCard />
+        </BookList>
+      </ExplorerContent>
+    </PageContainer>
   );
 }
 
