@@ -11,8 +11,8 @@ export default function Avatar({ size, src, alt }: AvatarProps) {
   const height = size === "sm" ? 32 : size === "md" ? 72 : 104;
 
   return (
-    <AvatarContainer size={size}>
-      <AvatarImage src={src} alt={alt} width={width} height={height} />
+    <AvatarContainer>
+      <AvatarImage src={src} alt={alt} width={width} height={height} size={size} />
     </AvatarContainer>
   );
 }
