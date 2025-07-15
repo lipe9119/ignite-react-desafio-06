@@ -1,5 +1,6 @@
 import Avatar from "@/components/Avatar";
 import { DefaultLayout } from "@/components/DefaultLayout";
+import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
 import { TitleSubtitle } from "@/components/TitleSubtitle";
 import { BookmarkSimple, BookOpen, Books, MagnifyingGlass, User, UserList } from "phosphor-react";
@@ -11,16 +12,15 @@ import {
   InfoDetails,
   Infos,
   PersonalInfo,
-  ProfileContainer,
   ProfileContent,
   ProfileDetailsContainer,
   SearchContainer,
-  SearchInput,
+  SearchInput
 } from "./styles";
 
 export default function Profile() {
   return (
-    <ProfileContainer>
+    <PageContainer>
       <PageHeader>
         <User size={32} />
         <span>Explorar</span>
@@ -70,7 +70,7 @@ export default function Profile() {
           </Infos>
         </ProfileDetailsContainer>
       </ProfileContent>
-    </ProfileContainer>
+    </PageContainer>
   );
 }
 

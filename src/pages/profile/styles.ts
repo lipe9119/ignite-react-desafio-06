@@ -1,13 +1,5 @@
 import { styled } from "@/styles";
 
-export const ProfileContainer = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "$10",
-
-  padding: "$10",
-});
-
 export const ProfileContent = styled("div", {
   display: "grid",
   gridTemplateColumns: "3fr 1fr",
@@ -90,6 +82,6 @@ export const Divisor = styled("div", {
   width: "2rem",
   height: "4px",
   borderRadius: "$full",
-  
+
   background: "$gradient-horizontal",
 });

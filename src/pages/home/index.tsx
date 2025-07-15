@@ -1,4 +1,5 @@
 import { DefaultLayout } from "@/components/DefaultLayout";
+import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
 import { CaretRight, ChartLineUp } from "phosphor-react";
@@ -7,7 +8,6 @@ import LastReadCard from "./LastReadCard";
 import PopularCard from "./PopularCard";
 import RecentCard from "./RecentCard";
 import {
-  HomeContainer,
   HomeContent,
   LastRead,
   LastReadHeader,
@@ -15,14 +15,14 @@ import {
   PopularsContent,
   PopularsHeader,
   Recents,
-  RecentsContent,
+  RecentsContent
 } from "./styles";
 
 export default function Home() {
   const isLoged = true;
 
   return (
-    <HomeContainer>
+    <PageContainer>
       <PageHeader>
         <ChartLineUp size={32} />
         <span>Início</span>
@@ -67,7 +67,7 @@ export default function Home() {
           </PopularsContent>
         </Populars>
       </HomeContent>
-    </HomeContainer>
+    </PageContainer>
   );
 }
 

@@ -1,13 +1,5 @@
 import { styled } from "@/styles";
 
-export const HomeContainer = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "$10",
-
-  padding: "$10",
-});
-
 export const HomeContent = styled("div", {
   display: "grid",
   gridTemplateColumns: "2fr 1fr",
