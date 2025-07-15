@@ -2,6 +2,7 @@ import Stars from "@/components/Stars";
 import Image from "next/image";
 
 import bookImage from "@/assets/books/codigo-limpo.png";
+import { TitleSubtitle } from "@/components/TitleSubtitle";
 import { EvaluatedCardContainer, EvaluatedCardContent, EvaluatedCardHeader } from "./styles";
 
 export default function EvaluatedCard() {
@@ -13,10 +14,7 @@ export default function EvaluatedCard() {
         <EvaluatedCardHeader>
           <Image src={bookImage} alt="" width={98} height={134} />
           <div>
-            <h3>
-              O Hobbit
-              <span>J.R.R Tolkien</span>
-            </h3>
+            <TitleSubtitle title="O Hobbit" subtitle="J.R.R Tolkien" size="sm" />
 
             <Stars totalOfStars={4.5} />
           </div>
