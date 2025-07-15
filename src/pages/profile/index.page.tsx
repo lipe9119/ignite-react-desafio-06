@@ -1,16 +1,43 @@
+import { Box } from "@/components/Box";
 import { DefaultLayout } from "@/components/DefaultLayout";
 import PageHeader from "@/components/PageHeader";
-import { User } from "phosphor-react";
+import { MagnifyingGlass, User } from "phosphor-react";
 import { ReactElement } from "react";
+import {
+  BookList,
+  ProfileContainer,
+  ProfileContent,
+  ProfileDetailsContainer,
+  SearchContainer,
+  SearchInput,
+} from "./styles";
 
 export default function Profile() {
   return (
-    <div>
+    <ProfileContainer>
       <PageHeader>
         <User size={32} />
         <span>Explorar</span>
       </PageHeader>
-    </div>
+
+      <ProfileContent>
+        <div>
+          <SearchContainer>
+            <SearchInput placeholder="Buscar livro avaliado" />
+            <MagnifyingGlass />
+          </SearchContainer>
+
+          <BookList>
+            <Box></Box>
+            <Box></Box>
+            <Box></Box>
+            <Box></Box>
+          </BookList>
+        </div>
+
+        <ProfileDetailsContainer></ProfileDetailsContainer>
+      </ProfileContent>
+    </ProfileContainer>
   );
 }
 
