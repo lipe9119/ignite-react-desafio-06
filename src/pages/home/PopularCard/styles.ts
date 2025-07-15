@@ -13,21 +13,5 @@ export const PopularCardContainer = styled(Box, {
     justifyContent: "space-between",
 
     height: "100%",
-
-    h3: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "$1",
-
-      fontSize: "$md",
-      color: "$gray-100",
-      fontWeight: "$bold",
-
-      span: {
-        fontSize: "$sm",
-        color: "$gray-400",
-        fontWeight: "$regular",
-      },
-    },
   },
 });

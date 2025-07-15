@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import bookImage from "@/assets/books/codigo-limpo.png";
 import Stars from "@/components/Stars";
+import { TitleSubtitle } from "@/components/TitleSubtitle";
 import { LastReadContainer, LastReadContent, LastReadHeader } from "./styles";
 
 export default function LastReadCard() {
@@ -14,10 +15,7 @@ export default function LastReadCard() {
           <span>Hoje</span>
           <Stars totalOfStars={4.5} />
         </LastReadHeader>
-        <h3>
-          O Hobbit
-          <span>J.R.R Tolkien</span>
-        </h3>
+        <TitleSubtitle title="O Hobbit" subtitle="J.R.R Tolkien" size="sm" />
         Semper et sapien proin vitae nisi. Feugiat neque integer donec et aenean posuere amet
       </LastReadContent>
     </LastReadContainer>

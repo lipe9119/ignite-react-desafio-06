@@ -16,21 +16,6 @@ export const LastReadContent = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: "$4",
-
-  h3: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "$1",
-
-    fontSize: "$md",
-    color: "$gray-100",
-    fontWeight: "$bold",
-    span: {
-      fontSize: "$sm",
-      color: "$gray-400",
-      fontWeight: "$regular",
-    },
-  },
 });
 
 export const LastReadHeader = styled("div", {

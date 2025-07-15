@@ -22,18 +22,6 @@ export const RecentCardProfileInfo = styled("div", {
   display: "flex",
   alignItems: "center",
   gap: "$4",
-
-  div: {
-    display: "flex",
-    flexDirection: "column",
-    color: "$gray-100",
-    fontSize: "$md",
-
-    span: {
-      color: "$gray-400",
-      fontSize: "$sm",
-    },
-  },
 });
 
 export const RecentCardContent = styled("div", {
