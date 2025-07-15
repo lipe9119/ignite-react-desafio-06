@@ -6,7 +6,6 @@ export const InputContainer = styled("div", {
 
   width: "100%",
   padding: "$5",
-  marginBottom: "$10",
 
   border: "1px solid $gray-500",
   borderRadius: "$md",

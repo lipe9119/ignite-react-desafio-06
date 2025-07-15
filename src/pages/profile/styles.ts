@@ -5,6 +5,12 @@ export const ProfileContent = styled("div", {
   gridTemplateColumns: "3fr 1fr",
 
   gap: "$10",
+
+  "> div": {
+    display: "flex",
+    flexDirection: "column",
+    gap: "$10",
+  },
 });
 
 export const BookList = styled("div", {
