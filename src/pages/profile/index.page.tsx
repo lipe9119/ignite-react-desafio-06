@@ -1,10 +1,16 @@
+import Avatar from "@/components/Avatar";
 import { DefaultLayout } from "@/components/DefaultLayout";
 import PageHeader from "@/components/PageHeader";
-import { MagnifyingGlass, User } from "phosphor-react";
+import { TitleSubtitle } from "@/components/TitleSubtitle";
+import { BookmarkSimple, BookOpen, Books, MagnifyingGlass, User, UserList } from "phosphor-react";
 import { ReactElement } from "react";
 import EvaluatedCard from "./EvaluatedCard";
 import {
   BookList,
+  Divisor,
+  InfoDetails,
+  Infos,
+  PersonalInfo,
   ProfileContainer,
   ProfileContent,
   ProfileDetailsContainer,
@@ -33,7 +39,35 @@ export default function Profile() {
         </div>
 
         <ProfileDetailsContainer>
-          
+          <PersonalInfo>
+            <Avatar alt="" size="lg" src="https://github.com/dornelles08.png" />
+
+            <TitleSubtitle title="Felipe Dornelles" subtitle="membro desde 2025" size="lg" center />
+          </PersonalInfo>
+
+          <Divisor />
+
+          <Infos>
+            <InfoDetails>
+              <BookOpen size={32} />
+              <TitleSubtitle title="3853" subtitle="Páginas lidas" size="sm" />
+            </InfoDetails>
+
+            <InfoDetails>
+              <Books size={32} />
+              <TitleSubtitle title="10" subtitle="Livros Avaliados" size="sm" />
+            </InfoDetails>
+
+            <InfoDetails>
+              <UserList size={32} />
+              <TitleSubtitle title="8" subtitle="Autores lidos" size="sm" />
+            </InfoDetails>
+
+            <InfoDetails>
+              <BookmarkSimple size={32} />
+              <TitleSubtitle title="Computação" subtitle="Categoria mais lida" size="sm" />
+            </InfoDetails>
+          </Infos>
         </ProfileDetailsContainer>
       </ProfileContent>
     </ProfileContainer>

@@ -50,8 +50,46 @@ export const SearchInput = styled("input", {
   width: "100%",
 });
 
-export const ProfileDetailsContainer = styled("div", {
-  borderLeft: "1px solid $gray-700",
+export const PersonalInfo = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 
-  padding: "$10",
+  gap: "$5",
+});
+
+export const ProfileDetailsContainer = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  width: "100%",
+
+  borderLeft: "1px solid $gray-700",
+});
+
+export const Infos = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+
+  gap: "$10",
+});
+
+export const InfoDetails = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  gap: "$5",
+
+  svg: {
+    color: "$green-100",
+  },
+});
+
+export const Divisor = styled("div", {
+  margin: "$10 0",
+
+  width: "2rem",
+  height: "4px",
+  borderRadius: "$full",
+  
+  background: "$gradient-horizontal",
 });
