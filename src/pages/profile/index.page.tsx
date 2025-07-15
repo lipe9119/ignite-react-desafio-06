@@ -1,8 +1,8 @@
-import { Box } from "@/components/Box";
 import { DefaultLayout } from "@/components/DefaultLayout";
 import PageHeader from "@/components/PageHeader";
 import { MagnifyingGlass, User } from "phosphor-react";
 import { ReactElement } from "react";
+import EvaluatedCard from "./EvaluatedCard";
 import {
   BookList,
   ProfileContainer,
@@ -28,14 +28,13 @@ export default function Profile() {
           </SearchContainer>
 
           <BookList>
-            <Box></Box>
-            <Box></Box>
-            <Box></Box>
-            <Box></Box>
+            <EvaluatedCard />
           </BookList>
         </div>
 
-        <ProfileDetailsContainer></ProfileDetailsContainer>
+        <ProfileDetailsContainer>
+          
+        </ProfileDetailsContainer>
       </ProfileContent>
     </ProfileContainer>
   );

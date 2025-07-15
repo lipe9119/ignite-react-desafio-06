@@ -18,6 +18,7 @@ export const ProfileContent = styled("div", {
 export const BookList = styled("div", {
   display: "flex",
   flexDirection: "column",
+  minWidth: "10rem",
 
   gap: "$10",
 });
