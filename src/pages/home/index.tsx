@@ -4,8 +4,8 @@ import PageHeader from "@/components/PageHeader";
 import Link from "next/link";
 import { CaretRight, ChartLineUp } from "phosphor-react";
 import { ReactElement } from "react";
+import ExplorerCard from "../../components/ExplorerCard";
 import LastReadCard from "./LastReadCard";
-import PopularCard from "./PopularCard";
 import RecentCard from "./RecentCard";
 import {
   HomeContent,
@@ -15,7 +15,7 @@ import {
   PopularsContent,
   PopularsHeader,
   Recents,
-  RecentsContent
+  RecentsContent,
 } from "./styles";
 
 export default function Home() {
@@ -63,7 +63,7 @@ export default function Home() {
           </PopularsHeader>
 
           <PopularsContent>
-            <PopularCard />
+            <ExplorerCard />
           </PopularsContent>
         </Populars>
       </HomeContent>

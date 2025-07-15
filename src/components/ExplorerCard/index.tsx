@@ -5,7 +5,7 @@ import bookImage from "@/assets/books/codigo-limpo.png";
 import { TitleSubtitle } from "@/components/TitleSubtitle";
 import { PopularCardContainer } from "./styles";
 
-export default function PopularCard() {
+export default function ExplorerCard() {
   return (
     <PopularCardContainer>
       <Image src={bookImage} alt="" width={64} height={94} />
