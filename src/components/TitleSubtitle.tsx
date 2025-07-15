@@ -4,13 +4,13 @@ interface TitleSubtitleProps {
   title: string;
   subtitle: string;
   size: "sm" | "md" | "lg";
+  center?: boolean;
   reverse?: boolean;
 }
 
 const TitleSubtitleContainer = styled("div", {
   display: "flex",
   flexDirection: "column",
-  gap: "$1",
 
   h2: {
     color: "$gray-100",
@@ -43,23 +43,34 @@ const TitleSubtitleContainer = styled("div", {
         },
       },
     },
+    center: {
+      true: {
+        alignItems: "center",
+      },
+    },
   },
 });
 
-export function TitleSubtitle({ title, subtitle, size, reverse = false }: TitleSubtitleProps) {
+export function TitleSubtitle({
+  title,
+  subtitle,
+  size,
+  reverse = false,
+  center = false,
+}: TitleSubtitleProps) {
+  if (reverse) {
+    return (
+      <TitleSubtitleContainer size={size}>
+        <span>{subtitle}</span>
+        <h2>{title}</h2>
+      </TitleSubtitleContainer>
+    );
+  }
+
   return (
-    <TitleSubtitleContainer size={size}>
-      {reverse ? (
-        <>
-          <span>{subtitle}</span>
-          <h2>{title}</h2>
-        </>
-      ) : (
-        <>
-          <h2>{title}</h2>
-          <span>{subtitle}</span>
-        </>
-      )}
+    <TitleSubtitleContainer size={size} center={center}>
+      <h2>{title}</h2>
+      <span>{subtitle}</span>
     </TitleSubtitleContainer>
   );
 }
