@@ -20,6 +20,7 @@ const filters = {
 
 export default function Explore() {
   const [filter, setFilter] = useState("all");
+  const [selectedBook, setSelectedBook] = useState("");
 
   function handleFilterClick(newFilter: string) {
     setFilter(newFilter);
@@ -46,11 +47,15 @@ export default function Explore() {
         </FiltersContainer>
 
         <BookList>
+          <ExplorerCard lido handleClick={() => setSelectedBook("")} />
+          <ExplorerCard />
+          <ExplorerCard />
+          <ExplorerCard />
           <ExplorerCard lido />
           <ExplorerCard />
           <ExplorerCard />
           <ExplorerCard />
-          <ExplorerCard />
+          <ExplorerCard lido />
         </BookList>
       </ExplorerContent>
     </PageContainer>

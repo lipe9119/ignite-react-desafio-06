@@ -7,13 +7,14 @@ import { LidoTag, PopularCardContainer } from "./styles";
 
 interface ExplorerCardProps {
   lido?: boolean;
+  handleClick?: () => void;
 }
 
-export default function ExplorerCard({ lido }: ExplorerCardProps) {
+export default function ExplorerCard({ lido, handleClick }: ExplorerCardProps) {
   console.log(lido);
-  
+
   return (
-    <PopularCardContainer>
+    <PopularCardContainer onClick={handleClick} click={!!handleClick}>
       {lido && <LidoTag>LIDO</LidoTag>}
       <Image src={bookImage} alt="" width={64} height={94} />
 

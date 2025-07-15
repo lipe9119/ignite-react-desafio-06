@@ -15,6 +15,14 @@ export const PopularCardContainer = styled(Box, {
 
     height: "100%",
   },
+
+  variants: {
+    click: {
+      true: {
+        cursor: "pointer",
+      },
+    },
+  },
 });
 
 export const LidoTag = styled("span", {
