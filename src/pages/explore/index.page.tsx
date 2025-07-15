@@ -5,6 +5,7 @@ import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
 import { Binoculars } from "phosphor-react";
 import { ReactElement, useState } from "react";
+import BookDrawer from "./BookDrawer";
 import { BookList, ExplorerContent, ExplorerHeader, Filter, FiltersContainer } from "./styles";
 
 const filters = {
@@ -20,7 +21,7 @@ const filters = {
 
 export default function Explore() {
   const [filter, setFilter] = useState("all");
-  const [selectedBook, setSelectedBook] = useState("");
+  const [selectedBook, setSelectedBook] = useState<null | string>(null);
 
   function handleFilterClick(newFilter: string) {
     setFilter(newFilter);
@@ -47,7 +48,7 @@ export default function Explore() {
         </FiltersContainer>
 
         <BookList>
-          <ExplorerCard lido handleClick={() => setSelectedBook("")} />
+          <ExplorerCard lido handleClick={() => setSelectedBook("Livro 1")} />
           <ExplorerCard />
           <ExplorerCard />
           <ExplorerCard />
@@ -58,6 +59,8 @@ export default function Explore() {
           <ExplorerCard lido />
         </BookList>
       </ExplorerContent>
+
+      {selectedBook && <BookDrawer book={selectedBook} onClose={() => setSelectedBook(null)} />}
     </PageContainer>
   );
 }
