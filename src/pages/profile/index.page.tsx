@@ -1,9 +1,10 @@
 import Avatar from "@/components/Avatar";
 import { DefaultLayout } from "@/components/DefaultLayout";
+import Input from "@/components/Input";
 import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
 import { TitleSubtitle } from "@/components/TitleSubtitle";
-import { BookmarkSimple, BookOpen, Books, MagnifyingGlass, User, UserList } from "phosphor-react";
+import { BookmarkSimple, BookOpen, Books, User, UserList } from "phosphor-react";
 import { ReactElement } from "react";
 import EvaluatedCard from "./EvaluatedCard";
 import {
@@ -14,8 +15,6 @@ import {
   PersonalInfo,
   ProfileContent,
   ProfileDetailsContainer,
-  SearchContainer,
-  SearchInput
 } from "./styles";
 
 export default function Profile() {
@@ -28,10 +27,7 @@ export default function Profile() {
 
       <ProfileContent>
         <div>
-          <SearchContainer>
-            <SearchInput placeholder="Buscar livro avaliado" />
-            <MagnifyingGlass />
-          </SearchContainer>
+          <Input placeholder="Buscar livro avaliado" />
 
           <BookList>
             <EvaluatedCard />
