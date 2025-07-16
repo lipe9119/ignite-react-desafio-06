@@ -33,7 +33,12 @@ export default function BookAssess({ onClose, onSendAssess }: BookAssessProps) {
           <Avatar src="https://github.com/dornelles08.png" alt="" size="sm" />
           <span>Felipe Dornelles</span>
         </div>
-        <Stars totalOfStars={0} size="lg" />
+        <Stars
+          totalOfStars={0}
+          size="lg"
+          editable
+          onRate={(value) => console.log("Avaliado com:", value)}
+        />
       </BookAssessHeader>
 
       <BookAssessContent>
