@@ -21,14 +21,22 @@ interface BookDrawerProps {
 import bookImage from "@/assets/books/fragmentos-do-horror.png";
 import Stars from "@/components/Stars";
 import { TitleSubtitle } from "@/components/TitleSubtitle";
+import { useState } from "react";
 import Comment from "./Comment";
+import LoginModal from "./LoginModal";
 
 export default function BookDrawer({ book, onClose }: BookDrawerProps) {
   if (!book) return null;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isLoged = false;
 
   function handleAssess() {
     console.log("assess");
+    if (!isLoged) {
+      setIsModalOpen(true);
+      return;
+    }
   }
 
   return (
@@ -91,6 +99,7 @@ export default function BookDrawer({ book, onClose }: BookDrawerProps) {
           </CommentsContainer>
         </DrawerContent>
       </Drawer>
+      <LoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </DrawerOverlay>
   );
 }
