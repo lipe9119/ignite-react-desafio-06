@@ -22,21 +22,34 @@ import bookImage from "@/assets/books/fragmentos-do-horror.png";
 import Stars from "@/components/Stars";
 import { TitleSubtitle } from "@/components/TitleSubtitle";
 import { useState } from "react";
+import BookAssess from "./BookAssess";
 import Comment from "./Comment";
 import LoginModal from "./LoginModal";
+
+export interface BookAssessSchema {
+  comment: string;
+  rate: number;
+}
 
 export default function BookDrawer({ book, onClose }: BookDrawerProps) {
   if (!book) return null;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isLoged = false;
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
+  const isLoged = true;
 
   function handleAssess() {
-    console.log("assess");
     if (!isLoged) {
       setIsModalOpen(true);
       return;
     }
+    setIsCommentOpen(true);
+  }
+
+  function handleSendAssess(assess: BookAssessSchema) {
+    console.log(assess);
+
+    setIsCommentOpen(false);
   }
 
   return (
@@ -91,6 +104,9 @@ export default function BookDrawer({ book, onClose }: BookDrawerProps) {
           </CommentsHeader>
 
           <CommentsContainer>
+            {isCommentOpen && (
+              <BookAssess onClose={() => setIsCommentOpen(false)} onSendAssess={handleSendAssess} />
+            )}
             <Comment />
             <Comment />
             <Comment />
