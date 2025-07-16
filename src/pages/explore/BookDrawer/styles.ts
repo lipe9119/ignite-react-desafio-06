@@ -32,6 +32,21 @@ export const Drawer = styled("div", {
       background: "none",
     },
   },
+
+  "&::-webkit-scrollbar": {
+    width: "0.5rem",
+  },
+  "&::-webkit-scrollbar-track": {
+    background: "$gray-700",
+    borderRadius: "$full",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    background: "$gray-600",
+    borderRadius: "$full",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    background: "$gray-500",
+  },
 });
 
 export const DrawerContent = styled("div", {
@@ -87,4 +102,21 @@ export const InfoDetails = styled("div", {
   svg: {
     color: "$green-100",
   },
+});
+
+export const CommentsHeader = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+
+  [`${Button}`]: {
+    color: "$purple-100",
+  },
+});
+
+export const CommentsContainer = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+
+  gap: "$6",
 });

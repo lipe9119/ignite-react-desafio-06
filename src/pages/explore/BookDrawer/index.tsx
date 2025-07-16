@@ -5,6 +5,8 @@ import {
   BookInfos,
   BookInfosFooter,
   BookInfosHeader,
+  CommentsContainer,
+  CommentsHeader,
   Drawer,
   DrawerContent,
   DrawerOverlay,
@@ -19,9 +21,15 @@ interface BookDrawerProps {
 import bookImage from "@/assets/books/fragmentos-do-horror.png";
 import Stars from "@/components/Stars";
 import { TitleSubtitle } from "@/components/TitleSubtitle";
+import Comment from "./Comment";
 
 export default function BookDrawer({ book, onClose }: BookDrawerProps) {
   if (!book) return null;
+  const isLoged = false;
+
+  function handleAssess() {
+    console.log("assess");
+  }
 
   return (
     <DrawerOverlay>
@@ -66,6 +74,21 @@ export default function BookDrawer({ book, onClose }: BookDrawerProps) {
               </InfoDetails>
             </BookInfosFooter>
           </BookInfos>
+
+          <CommentsHeader>
+            Avaliações
+            <Button variant="ouline" size="sm" onClick={handleAssess}>
+              Avaliar
+            </Button>
+          </CommentsHeader>
+
+          <CommentsContainer>
+            <Comment />
+            <Comment />
+            <Comment />
+            <Comment />
+            <Comment />
+          </CommentsContainer>
         </DrawerContent>
       </Drawer>
     </DrawerOverlay>
