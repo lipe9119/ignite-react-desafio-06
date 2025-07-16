@@ -62,5 +62,6 @@ export const FormButtons = styled("div", {
     display: "flex",
     alignItems: "center",
     justifyContent: "start",
+    padding: "0 $4",
   }
 });
