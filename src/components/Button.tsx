@@ -4,7 +4,11 @@ import { ComponentProps, ElementType } from "react";
 export const Button = styled("button", {
   all: "unset",
 
-  padding: "0 $4",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+
+  padding: "$4",
   borderRadius: "$md",
   gap: "$5",
 
@@ -41,7 +45,7 @@ export const Button = styled("button", {
       },
       ouline: {
         "&:not(:disabled):hover": {
-          background: "$gray-600",
+          background: "$gray-500",
         },
       },
     },
