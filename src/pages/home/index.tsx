@@ -5,7 +5,6 @@ import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { CaretRight, ChartLineUp } from "phosphor-react";
-import ExplorerCard from "../../components/ExplorerCard";
 import { buildNextAuthOptions } from "../api/auth/[...nextauth].api";
 import LastReadCard from "./LastReadCard";
 import RecentCard from "./RecentCard";
@@ -67,7 +66,7 @@ export default function Home() {
           </PopularsHeader>
 
           <PopularsContent>
-            <ExplorerCard />
+            {/* <ExplorerCard /> */}
           </PopularsContent>
         </Populars>
       </HomeContent>
@@ -75,9 +74,6 @@ export default function Home() {
   );
 }
 
-// Home.getLayout = function getLayout(page: ReactElement) {
-//   return <DefaultLayout>{page}</DefaultLayout>;
-// };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   return {

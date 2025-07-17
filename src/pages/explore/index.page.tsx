@@ -2,6 +2,8 @@ import ExplorerCard from "@/components/ExplorerCard";
 import Input from "@/components/Input";
 import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
+import { api } from "@/lib/axios";
+import { useQuery } from "@tanstack/react-query";
 import { Binoculars } from "phosphor-react";
 import { useState } from "react";
 import BookDrawer from "./BookDrawer";
@@ -18,9 +20,29 @@ const filters = {
   suspense: "Suspense",
 };
 
+export interface Book {
+  id: string;
+  name: string;
+  author: string;
+  summary: string;
+  cover_url: string;
+  total_pages: number;
+  created_at: Date;
+}
+
 export default function Explore() {
   const [filter, setFilter] = useState("all");
   const [selectedBook, setSelectedBook] = useState<null | string>(null);
+
+  const { data: books } = useQuery({
+    queryKey: ["books"],
+    queryFn: async () => {
+      const response = await api.get("books");
+      return response.data;
+    },
+  });
+
+  console.log(books);
 
   function handleFilterClick(newFilter: string) {
     setFilter(newFilter);
@@ -47,15 +69,14 @@ export default function Explore() {
         </FiltersContainer>
 
         <BookList>
-          <ExplorerCard lido handleClick={() => setSelectedBook("Livro 1")} />
-          <ExplorerCard />
-          <ExplorerCard />
-          <ExplorerCard />
-          <ExplorerCard lido />
-          <ExplorerCard />
-          <ExplorerCard />
-          <ExplorerCard />
-          <ExplorerCard lido />
+          {books?.map((book) => (
+            <ExplorerCard
+              key={book.id}
+              book={book}
+              handleClick={() => setSelectedBook(book.id)}
+              lido={false}
+            />
+          ))}
         </BookList>
       </ExplorerContent>
 

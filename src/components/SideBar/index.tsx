@@ -23,8 +23,6 @@ export default function SideBar() {
     await signOut();
   }
 
-  console.log(pathname === "/login" ? false : true);
-
   return (
     <SideBarContainer show={pathname === "/login" ? false : true}>
       <SideBarHeader>
