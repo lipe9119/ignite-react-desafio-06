@@ -2,6 +2,7 @@ import ExplorerCard from "@/components/ExplorerCard";
 import Input from "@/components/Input";
 import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
+import { Book } from "@/interfaces/Book";
 import { api } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
@@ -10,17 +11,6 @@ import { Binoculars } from "phosphor-react";
 import { useState } from "react";
 import BookDrawer from "./BookDrawer";
 import { BookList, ExplorerContent, ExplorerHeader, Filter, FiltersContainer } from "./styles";
-
-export interface Book {
-  id: string;
-  name: string;
-  author: string;
-  summary: string;
-  cover_url: string;
-  total_pages: number;
-  created_at: Date;
-  ratings: { rate: number }[];
-}
 
 export interface Category {
   id: string;

@@ -2,7 +2,8 @@ import Stars from "@/components/Stars";
 import Image from "next/image";
 
 import { TitleSubtitle } from "@/components/TitleSubtitle";
-import { Book } from "@/pages/explore/index.page";
+
+import { Book } from "@/interfaces/Book";
 import { LidoTag, PopularCardContainer } from "./styles";
 
 interface ExplorerCardProps {
