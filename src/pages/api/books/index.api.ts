@@ -6,29 +6,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).end();
   }
 
-  const { category, search } = req.query;
+  let { category, search } = req.query;
+
+  category = Array.isArray(category) ? category[0] : category === "" ? undefined : category;
+  search = Array.isArray(search) ? search[0] : search === "" ? undefined : search;
 
   const books = await prisma.book.findMany({
     where: {
-      categories: {
-        some: {
-          category: {
-            id: Array.isArray(category) ? category[0] : category === "" ? undefined : category,
+      ...(category && {
+        categories: {
+          some: {
+            category: {
+              id: category,
+            },
           },
         },
-      },
-      OR: [
-        {
-          name: {
-            contains: Array.isArray(search) ? search[0] : search === "" ? undefined : search,
+      }),
+      ...(search && {
+        OR: [
+          {
+            name: {
+              contains: search,
+            },
           },
-        },
-        {
-          author: {
-            contains: Array.isArray(search) ? search[0] : search === "" ? undefined : search,
+          {
+            author: {
+              contains: search,
+            },
           },
-        },
-      ],
+        ],
+      }),
     },
     include: {
       categories: true,
