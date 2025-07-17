@@ -1,7 +1,8 @@
-import { AvatarContainer, AvatarImage } from "./styles";
+import { User } from "phosphor-react";
+import { AvatarContainer, AvatarFallback, AvatarImage } from "./styles";
 
 interface AvatarProps {
-  src: string;
+  src?: string | null;
   alt: string;
   size: "sm" | "md" | "lg";
 }
@@ -12,7 +13,13 @@ export default function Avatar({ size, src, alt }: AvatarProps) {
 
   return (
     <AvatarContainer>
-      <AvatarImage src={src} alt={alt} width={width} height={height} size={size} />
+      {src ? (
+        <AvatarImage src={src} alt={alt} width={width} height={height} size={size} />
+      ) : (
+        <AvatarFallback size={size}>
+          <User size={24} />
+        </AvatarFallback>
+      )}
     </AvatarContainer>
   );
 }
