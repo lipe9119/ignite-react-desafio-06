@@ -97,6 +97,7 @@ export const SideBarFooter = styled("div", {
     gap: "$5",
 
     width: "100%",
+    cursor: "pointer",
   },
 
   variants: {

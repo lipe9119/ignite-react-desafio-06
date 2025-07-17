@@ -42,10 +42,12 @@ export default function SideBar() {
           <span>Explorar</span>
         </SideBarItem>
 
-        <SideBarItem active={pathname === "/profile"} onClick={() => handleNavigate("/profile")}>
-          <User size={24} />
-          <span>Perfil</span>
-        </SideBarItem>
+        {isLoged && (
+          <SideBarItem active={pathname === "/profile"} onClick={() => handleNavigate("/profile")}>
+            <User size={24} />
+            <span>Perfil</span>
+          </SideBarItem>
+        )}
       </SideBarBody>
 
       <SideBarFooter isLoged={isLoged}>
