@@ -4,11 +4,14 @@ import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
 import { Book } from "@/interfaces/Book";
 import { api } from "@/lib/axios";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { Binoculars } from "phosphor-react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import z from "zod";
 import BookDrawer from "./BookDrawer";
 import { BookList, ExplorerContent, ExplorerHeader, Filter, FiltersContainer } from "./styles";
 
@@ -19,18 +22,29 @@ export interface Category {
 
 interface ExploreProps {
   filter: string;
+  search: string;
 }
 
-export default function Explore({ filter }: ExploreProps) {
+const searchSchema = z.object({
+  search: z.string(),
+});
+
+type SearchFormData = z.infer<typeof searchSchema>;
+
+export default function Explore({ filter, search }: ExploreProps) {
   const [selectedBook, setSelectedBook] = useState<null | string>(null);
   const router = useRouter();
+  const { register, handleSubmit } = useForm({
+    resolver: zodResolver(searchSchema),
+  });
 
   const { data: books } = useQuery<Book[]>({
-    queryKey: ["books", filter],
+    queryKey: ["books", filter, search],
     queryFn: async () => {
       const response = await api.get("books", {
         params: {
           category: filter,
+          search,
         },
       });
       return response.data;
@@ -52,6 +66,14 @@ export default function Explore({ filter }: ExploreProps) {
     router.push(`/explore?${params.toString()}`);
   }
 
+  function handleSearch(data: SearchFormData) {
+    const params = new URLSearchParams(router.query as any);
+    params.set("search", data.search);
+    params.set("filter", filter);
+
+    router.push(`/explore?${params.toString()}`);
+  }
+
   return (
     <PageContainer>
       <ExplorerHeader>
@@ -60,7 +82,9 @@ export default function Explore({ filter }: ExploreProps) {
           <span>Explorar</span>
         </PageHeader>
 
-        <Input placeholder="Buscar livro ou autor" />
+        <form onSubmit={handleSubmit(handleSearch)}>
+          <Input placeholder="Buscar livro ou autor" buttonType="submit" {...register("search")} />
+        </form>
       </ExplorerHeader>
 
       <ExplorerContent>
@@ -94,9 +118,11 @@ export default function Explore({ filter }: ExploreProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
   const filter = query.filter || "";
+  const search = query.search || "";
   return {
     props: {
       filter,
+      search,
     },
   };
 };

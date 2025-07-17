@@ -1,11 +1,10 @@
-import { InputContainer } from "@/components/Input/styles";
 import { styled } from "@/styles";
 
 export const ExplorerHeader = styled("div", {
   display: "flex",
   justifyContent: "space-between",
 
-  [`${InputContainer}`]: {
+  form: {
     width: "100%",
     maxWidth: "27rem",
   },

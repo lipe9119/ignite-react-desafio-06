@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).end();
   }
 
-  const { category } = req.query;
+  const { category, search } = req.query;
 
   const books = await prisma.book.findMany({
     where: {
@@ -17,6 +17,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         },
       },
+      OR: [
+        {
+          name: {
+            contains: Array.isArray(search) ? search[0] : search === "" ? undefined : search,
+          },
+        },
+        {
+          author: {
+            contains: Array.isArray(search) ? search[0] : search === "" ? undefined : search,
+          },
+        },
+      ],
     },
     include: {
       categories: true,

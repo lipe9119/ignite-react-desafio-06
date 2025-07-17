@@ -15,6 +15,11 @@ export const InputContainer = styled("div", {
     height: "1.5rem",
     width: "1.5rem",
   },
+
+  button: {
+    all: "unset",
+    cursor: "pointer",
+  },
 });
 
 export const SearchInput = styled("input", {
