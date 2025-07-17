@@ -1,6 +1,8 @@
 import ExplorerCard from "@/components/ExplorerCard";
 import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
+import { Book } from "@/interfaces/Book";
+import { Rating } from "@/interfaces/Rating";
 import { api } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
@@ -9,7 +11,6 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { CaretRight, ChartLineUp } from "phosphor-react";
 import { buildNextAuthOptions } from "../api/auth/[...nextauth].api";
-import { Book } from "../explore/index.page";
 import LastReadCard from "./LastReadCard";
 import RecentCard from "./RecentCard";
 import {
@@ -29,12 +30,22 @@ export default function Home() {
   const isLoged = session.status === "authenticated";
 
   const { data: books } = useQuery<Book[]>({
-    queryKey: ["books"],
+    queryKey: ["books", "populars"],
     queryFn: async () => {
       const response = await api.get("books/populars");
       return response.data;
     },
   });
+
+  const { data: ratings } = useQuery<Rating[]>({
+    queryKey: ["ratings", "recents"],
+    queryFn: async () => {
+      const response = await api.get("ratings");
+      return response.data;
+    },
+  });
+
+  console.log(ratings);
 
   return (
     <PageContainer>
@@ -63,7 +74,16 @@ export default function Home() {
             <div>Avaliações mais recentes</div>
 
             <RecentsContent>
-              <RecentCard />
+              {ratings?.map((rating) => (
+                <RecentCard
+                  key={rating.id}
+                  book={rating.book}
+                  user={rating.user}
+                  rate={rating.rate}
+                  description={rating.description}
+                  created_at={rating.created_at}
+                />
+              ))}
             </RecentsContent>
           </Recents>
         </div>

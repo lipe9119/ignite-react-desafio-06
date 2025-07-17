@@ -8,29 +8,45 @@ import {
   RecentCardProfileInfo,
 } from "./styles";
 
-import bookImage from "@/assets/books/codigo-limpo.png";
 import { TitleSubtitle } from "@/components/TitleSubtitle";
+import { Book } from "@/interfaces/Book";
+import { User } from "@/interfaces/User";
+import dayjs from "dayjs";
 
-export default function RecentCard() {
+interface RecentCardProps {
+  book: Book;
+  user: User;
+  rate: number;
+  description: string;
+  created_at: string;
+}
+
+export default function RecentCard({ book, description, rate, user, created_at }: RecentCardProps) {
+  const date = dayjs(created_at).format("DD/MM/YYYY");
+
+  const coverPath = book.cover_url.startsWith("public/")
+    ? book.cover_url.replace("public", "")
+    : book.cover_url;
+
+  const coverUrl = coverPath.startsWith("/") ? coverPath : `/${coverPath}`;
+
   return (
     <RecentCardContainer>
       <RecentCardHeader>
         <RecentCardProfileInfo>
-          <Avatar src="https://github.com/dornelles08.png" alt="" size="sm" />
-          <TitleSubtitle title="Felipe Dornelels" subtitle="Hoje" size="sm" />
+          <Avatar src={user.avatar_url} alt="" size="sm" />
+          <TitleSubtitle title={user.name} subtitle={date} size="sm" />
         </RecentCardProfileInfo>
 
-        <Stars totalOfStars={4.5} />
+        <Stars totalOfStars={rate} />
       </RecentCardHeader>
 
       <RecentCardContent>
-        <Image src={bookImage} alt="" width={108} height={152} />
+        <Image src={coverUrl} alt="" width={108} height={152} />
 
         <div>
-          <TitleSubtitle title="O Hobbit" subtitle="J.R.R Tolkien" size="sm" />
-          Semper et sapien proin vitae nisi. Feugiat neque integer donec et aenean posuere amet
-          ultrices. Cras fermentum id pulvinar varius leo a in. Amet libero pharetra nunc elementum
-          fringilla velit ipsum. Sed vulputate massa velit nibh
+          <TitleSubtitle title={book.name} subtitle={book.author} size="sm" />
+          {description}
         </div>
       </RecentCardContent>
     </RecentCardContainer>
