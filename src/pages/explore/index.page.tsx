@@ -4,21 +4,12 @@ import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
 import { api } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import { Binoculars } from "phosphor-react";
 import { useState } from "react";
 import BookDrawer from "./BookDrawer";
 import { BookList, ExplorerContent, ExplorerHeader, Filter, FiltersContainer } from "./styles";
-
-const filters = {
-  all: "Tudo",
-  computing: "Computação",
-  education: "Educação",
-  fantasy: "Fantasia",
-  scienceFiction: "Ficção científica",
-  horror: "Horror",
-  comics: "HQs",
-  suspense: "Suspense",
-};
 
 export interface Book {
   id: string;
@@ -31,22 +22,44 @@ export interface Book {
   ratings: { rate: number }[];
 }
 
-export default function Explore() {
-  const [filter, setFilter] = useState("all");
+export interface Category {
+  id: string;
+  name: string;
+}
+
+interface ExploreProps {
+  filter: string;
+}
+
+export default function Explore({ filter }: ExploreProps) {
   const [selectedBook, setSelectedBook] = useState<null | string>(null);
+  const router = useRouter();
 
   const { data: books } = useQuery<Book[]>({
-    queryKey: ["books"],
+    queryKey: ["books", filter],
     queryFn: async () => {
-      const response = await api.get("books");
+      const response = await api.get("books", {
+        params: {
+          category: filter,
+        },
+      });
       return response.data;
     },
   });
 
-  console.log(books);
+  const { data: categories } = useQuery<Category[]>({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const response = await api.get("categories");
+      return response.data;
+    },
+  });
 
   function handleFilterClick(newFilter: string) {
-    setFilter(newFilter);
+    const params = new URLSearchParams(router.query as any);
+    params.set("filter", newFilter);
+
+    router.push(`/explore?${params.toString()}`);
   }
 
   return (
@@ -62,9 +75,12 @@ export default function Explore() {
 
       <ExplorerContent>
         <FiltersContainer>
-          {Object.entries(filters).map(([key, value]) => (
-            <Filter key={key} onClick={() => handleFilterClick(key)} active={filter === key}>
-              {value}
+          <Filter onClick={() => handleFilterClick("")} active={filter === ""}>
+            Todos
+          </Filter>
+          {categories?.map(({ id, name }) => (
+            <Filter key={id} onClick={() => handleFilterClick(id)} active={filter === id}>
+              {name}
             </Filter>
           ))}
         </FiltersContainer>
@@ -86,6 +102,11 @@ export default function Explore() {
   );
 }
 
-// Explore.getLayout = function getLayout(page: ReactElement) {
-//   return <DefaultLayout>{page}</DefaultLayout>;
-// };
+export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
+  const filter = query.filter || "";
+  return {
+    props: {
+      filter,
+    },
+  };
+};

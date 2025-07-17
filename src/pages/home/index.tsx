@@ -36,8 +36,6 @@ export default function Home() {
     },
   });
 
-  console.log(books);
-
   return (
     <PageContainer>
       <PageHeader>
