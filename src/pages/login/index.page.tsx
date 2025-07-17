@@ -23,8 +23,6 @@ export default function Login() {
 
   async function handleLogin(provider: "google" | "github") {
     await signIn(provider);
-
-    handleNavigateToHome();
   }
 
   useEffect(() => {

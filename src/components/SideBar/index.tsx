@@ -4,6 +4,7 @@ import { Binoculars, ChartLineUp, SignIn, SignOut, User } from "phosphor-react";
 import { SideBarBody, SideBarContainer, SideBarFooter, SideBarHeader, SideBarItem } from "./styles";
 
 import logo from "@/assets/logo.png";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import Avatar from "../Avatar";
 
@@ -16,8 +17,8 @@ export default function SideBar() {
     router.push(path);
   }
 
-  function handleLogout() {
-    console.log("logout");
+  async function handleLogout() {
+    await signOut();
   }
 
   return (
