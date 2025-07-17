@@ -1,10 +1,9 @@
-import { DefaultLayout } from "@/components/DefaultLayout";
 import ExplorerCard from "@/components/ExplorerCard";
 import Input from "@/components/Input";
 import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
 import { Binoculars } from "phosphor-react";
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import BookDrawer from "./BookDrawer";
 import { BookList, ExplorerContent, ExplorerHeader, Filter, FiltersContainer } from "./styles";
 
@@ -65,6 +64,6 @@ export default function Explore() {
   );
 }
 
-Explore.getLayout = function getLayout(page: ReactElement) {
-  return <DefaultLayout>{page}</DefaultLayout>;
-};
+// Explore.getLayout = function getLayout(page: ReactElement) {
+//   return <DefaultLayout>{page}</DefaultLayout>;
+// };

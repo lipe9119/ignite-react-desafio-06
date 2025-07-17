@@ -4,14 +4,16 @@ import { Binoculars, ChartLineUp, SignIn, SignOut, User } from "phosphor-react";
 import { SideBarBody, SideBarContainer, SideBarFooter, SideBarHeader, SideBarItem } from "./styles";
 
 import logo from "@/assets/logo.png";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Avatar from "../Avatar";
 
 export default function SideBar() {
   const router = useRouter();
+  const session = useSession();
   const pathname = router.pathname;
-  const isLoged = true;
+
+  const isLoged = session.status === "authenticated";
 
   function handleNavigate(path: string) {
     router.push(path);
@@ -21,8 +23,10 @@ export default function SideBar() {
     await signOut();
   }
 
+  console.log(pathname === "/login" ? false : true);
+
   return (
-    <SideBarContainer>
+    <SideBarContainer show={pathname === "/login" ? false : true}>
       <SideBarHeader>
         <Image src={logo} alt="Logo" />
       </SideBarHeader>

@@ -9,9 +9,6 @@ export function PrismaAdpter(
 ): Adapter {
   return {
     async createUser(user: { name: string; avatar_url: string }) {
-      console.log("createUser");
-      console.log({ user });
-
       const prismaUser = await prisma.user.create({
         data: {
           name: user.name,
@@ -33,9 +30,6 @@ export function PrismaAdpter(
     },
 
     async getUser(id) {
-      console.log("getUser");
-      console.log({ id });
-
       const user = await prisma.user.findUnique({
         where: {
           id,
@@ -56,9 +50,6 @@ export function PrismaAdpter(
     },
 
     async getUserByAccount({ providerAccountId, provider }) {
-      console.log("getUserByAccount");
-      console.log({ providerAccountId, provider });
-
       const account = await prisma.account.findUnique({
         where: {
           provider_provider_account_id: {
@@ -86,9 +77,6 @@ export function PrismaAdpter(
     },
 
     async updateUser(user) {
-      console.log("updateUser");
-      console.log({ user });
-
       const prismaUser = await prisma.user.update({
         where: {
           id: user.id,
@@ -109,9 +97,6 @@ export function PrismaAdpter(
     },
 
     async createSession({ sessionToken, userId, expires }) {
-      console.log("createSession");
-      console.log({ sessionToken, userId, expires });
-
       await prisma.session.create({
         data: {
           user_id: userId,
@@ -128,9 +113,6 @@ export function PrismaAdpter(
     },
 
     async getSessionAndUser(sessionToken) {
-      console.log("getSessionAndUser");
-      console.log({ sessionToken });
-
       const prismaSession = await prisma.session.findUnique({
         where: {
           session_token: sessionToken,
@@ -161,9 +143,6 @@ export function PrismaAdpter(
     },
 
     async updateSession({ sessionToken, expires, userId }) {
-      console.log("updateSession");
-      console.log({ sessionToken, expires, userId });
-
       const prismSession = await prisma.session.update({
         where: {
           session_token: sessionToken,
@@ -182,9 +161,6 @@ export function PrismaAdpter(
     },
 
     async deleteSession(sessionToken) {
-      console.log("deleteSession");
-      console.log({ sessionToken });
-
       await prisma.session.delete({
         where: {
           session_token: sessionToken,
@@ -205,9 +181,6 @@ export function PrismaAdpter(
       id_token?: string;
       session_state?: string;
     }) {
-      console.log("linkAccount");
-      console.log({ account });
-
       await prisma.account.create({
         data: {
           user_id: account.userId,

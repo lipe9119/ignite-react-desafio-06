@@ -47,8 +47,6 @@ export default function BookDrawer({ book, onClose }: BookDrawerProps) {
   }
 
   function handleSendAssess(assess: BookAssessSchema) {
-    console.log(assess);
-
     setIsCommentOpen(false);
   }
 

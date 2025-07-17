@@ -11,8 +11,6 @@ interface ExplorerCardProps {
 }
 
 export default function ExplorerCard({ lido, handleClick }: ExplorerCardProps) {
-  console.log(lido);
-
   return (
     <PopularCardContainer onClick={handleClick} click={!!handleClick}>
       {lido && <LidoTag>LIDO</LidoTag>}

@@ -1,11 +1,9 @@
 import Avatar from "@/components/Avatar";
-import { DefaultLayout } from "@/components/DefaultLayout";
 import Input from "@/components/Input";
 import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
 import { TitleSubtitle } from "@/components/TitleSubtitle";
 import { BookmarkSimple, BookOpen, Books, User, UserList } from "phosphor-react";
-import { ReactElement } from "react";
 import EvaluatedCard from "./EvaluatedCard";
 import {
   BookList,
@@ -70,6 +68,6 @@ export default function Profile() {
   );
 }
 
-Profile.getLayout = function getLayout(page: ReactElement) {
-  return <DefaultLayout>{page}</DefaultLayout>;
-};
+// Profile.getLayout = function getLayout(page: ReactElement) {
+//   return <DefaultLayout>{page}</DefaultLayout>;
+// };

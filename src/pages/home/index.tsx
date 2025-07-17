@@ -1,10 +1,12 @@
-import { DefaultLayout } from "@/components/DefaultLayout";
 import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { CaretRight, ChartLineUp } from "phosphor-react";
-import { ReactElement } from "react";
 import ExplorerCard from "../../components/ExplorerCard";
+import { buildNextAuthOptions } from "../api/auth/[...nextauth].api";
 import LastReadCard from "./LastReadCard";
 import RecentCard from "./RecentCard";
 import {
@@ -19,7 +21,9 @@ import {
 } from "./styles";
 
 export default function Home() {
-  const isLoged = true;
+  const session = useSession();
+
+  const isLoged = session.status === "authenticated";
 
   return (
     <PageContainer>
@@ -71,6 +75,14 @@ export default function Home() {
   );
 }
 
-Home.getLayout = function getLayout(page: ReactElement) {
-  return <DefaultLayout>{page}</DefaultLayout>;
+// Home.getLayout = function getLayout(page: ReactElement) {
+//   return <DefaultLayout>{page}</DefaultLayout>;
+// };
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  return {
+    props: {
+      session: await getServerSession(req, res, buildNextAuthOptions(req, res)),
+    },
+  };
 };

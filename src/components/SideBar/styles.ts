@@ -1,7 +1,6 @@
 import { styled } from "@/styles";
 
 export const SideBarContainer = styled("aside", {
-  display: "grid",
   gridTemplateRows: "auto 1fr auto",
 
   width: "14.5rem",
@@ -10,6 +9,21 @@ export const SideBarContainer = styled("aside", {
   padding: "$10",
 
   background: "$gray-700",
+
+  variants: {
+    show: {
+      true: {
+        display: "grid",
+      },
+      false: {
+        display: "none",
+      },
+    },
+  },
+
+  defaultVariants: {
+    show: true,
+  },
 });
 
 export const SideBarHeader = styled("div", {});
