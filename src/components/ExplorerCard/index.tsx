@@ -12,15 +12,23 @@ interface ExplorerCardProps {
 }
 
 export default function ExplorerCard({ book, lido, handleClick }: ExplorerCardProps) {
+  const coverPath = book.cover_url.startsWith("public/")
+    ? book.cover_url.replace("public", "")
+    : book.cover_url;
+
+  const coverUrl = coverPath.startsWith("/") ? coverPath : `/${coverPath}`;
+
+  const rate = book.ratings.reduce((acc, rating) => acc + rating.rate, 0) / book.ratings.length;
+
   return (
     <PopularCardContainer onClick={handleClick} click={!!handleClick}>
       {lido && <LidoTag>LIDO</LidoTag>}
-      <Image src={`/${book.cover_url}`} alt="" width={64} height={94} />
+      <Image src={coverUrl} alt="" width={64} height={94} />
 
       <div>
         <TitleSubtitle title={book.name} subtitle={book.author} size="sm" />
 
-        <Stars totalOfStars={4.5} />
+        <Stars totalOfStars={rate} />
       </div>
     </PopularCardContainer>
   );

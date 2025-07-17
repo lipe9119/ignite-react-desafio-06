@@ -1,11 +1,15 @@
+import ExplorerCard from "@/components/ExplorerCard";
 import { PageContainer } from "@/components/PageContainer";
 import PageHeader from "@/components/PageHeader";
+import { api } from "@/lib/axios";
+import { useQuery } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { CaretRight, ChartLineUp } from "phosphor-react";
 import { buildNextAuthOptions } from "../api/auth/[...nextauth].api";
+import { Book } from "../explore/index.page";
 import LastReadCard from "./LastReadCard";
 import RecentCard from "./RecentCard";
 import {
@@ -23,6 +27,16 @@ export default function Home() {
   const session = useSession();
 
   const isLoged = session.status === "authenticated";
+
+  const { data: books } = useQuery<Book[]>({
+    queryKey: ["books"],
+    queryFn: async () => {
+      const response = await api.get("books/populars");
+      return response.data;
+    },
+  });
+
+  console.log(books);
 
   return (
     <PageContainer>
@@ -66,14 +80,15 @@ export default function Home() {
           </PopularsHeader>
 
           <PopularsContent>
-            {/* <ExplorerCard /> */}
+            {books?.map((book) => (
+              <ExplorerCard key={book.id} book={book} />
+            ))}
           </PopularsContent>
         </Populars>
       </HomeContent>
     </PageContainer>
   );
 }
-
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   return {

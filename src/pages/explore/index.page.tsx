@@ -28,13 +28,14 @@ export interface Book {
   cover_url: string;
   total_pages: number;
   created_at: Date;
+  ratings: { rate: number }[];
 }
 
 export default function Explore() {
   const [filter, setFilter] = useState("all");
   const [selectedBook, setSelectedBook] = useState<null | string>(null);
 
-  const { data: books } = useQuery({
+  const { data: books } = useQuery<Book[]>({
     queryKey: ["books"],
     queryFn: async () => {
       const response = await api.get("books");
