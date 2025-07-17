@@ -3,6 +3,8 @@ import { styled } from "@/styles";
 export const HomeContent = styled("div", {
   display: "grid",
   gridTemplateColumns: "2fr 1fr",
+
+  gap: "$10",
 });
 
 export const LastRead = styled("div", {
@@ -36,7 +38,8 @@ export const Recents = styled("div", {
   flexDirection: "column",
   gap: "$10",
 
-  paddingRight: "$10",
+  // flex: "1",
+  // overflowY: "auto",
 });
 
 export const RecentsContent = styled("div", {
@@ -50,7 +53,9 @@ export const Populars = styled("div", {
   flexDirection: "column",
   gap: "$10",
 
-  paddingLeft: "$10",
+  position: "sticky",
+  top: "$5",
+  height: "calc(100vh - (2.5rem))",
 });
 
 export const PopularsHeader = styled("div", {

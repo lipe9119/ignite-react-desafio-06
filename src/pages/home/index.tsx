@@ -45,8 +45,6 @@ export default function Home() {
     },
   });
 
-  console.log(ratings);
-
   return (
     <PageContainer>
       <PageHeader>

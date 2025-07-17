@@ -1,6 +1,9 @@
 import { styled } from "@/styles";
 
 export const SideBarContainer = styled("aside", {
+  position: "sticky",
+  top: "$5",
+  height: "calc(100vh - (1.25rem*2))",
   gridTemplateRows: "auto 1fr auto",
 
   width: "14.5rem",

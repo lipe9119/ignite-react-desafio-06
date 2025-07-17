@@ -10,7 +10,12 @@ export const ExplorerHeader = styled("div", {
   },
 });
 
-export const ExplorerContent = styled("div", {});
+export const ExplorerContent = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+
+  gap: "$10",
+});
 
 export const FiltersContainer = styled("div", {
   display: "flex",
@@ -43,8 +48,6 @@ export const Filter = styled("label", {
 export const BookList = styled("div", {
   display: "grid",
   gridTemplateColumns: "repeat(3, 1fr)",
-
-  padding: "$10 0",
 
   gap: "$5",
 });
