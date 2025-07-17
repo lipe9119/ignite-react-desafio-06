@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   pageExtensions: ["page.tsx", "api.ts", "api.tsx"],
   images: {
-    domains: ["github.com"],
+    domains: ["github.com", "images.unsplash.com"],
   },
 };
 
