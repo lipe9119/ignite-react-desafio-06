@@ -7,11 +7,14 @@ import { api } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Binoculars } from "phosphor-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
+import { buildNextAuthOptions } from "../api/auth/[...nextauth].api";
 import BookDrawer from "./BookDrawer";
 import { BookList, ExplorerContent, ExplorerHeader, Filter, FiltersContainer } from "./styles";
 
@@ -33,23 +36,30 @@ type SearchFormData = z.infer<typeof searchSchema>;
 
 export default function Explore({ filter, search }: ExploreProps) {
   const [selectedBook, setSelectedBook] = useState<undefined | Book>(undefined);
+  const session = useSession();
   const router = useRouter();
   const { register, handleSubmit } = useForm({
     resolver: zodResolver(searchSchema),
   });
 
+  const user = session.data?.user;
+
   const { data: books } = useQuery<Book[]>({
-    queryKey: ["books", filter, search],
+    queryKey: ["books", filter, search, user?.id],
     queryFn: async () => {
       const response = await api.get("books", {
         params: {
           category: filter,
           search,
+          userId: user?.id,
         },
       });
       return response.data;
     },
   });
+
+  console.log(books);
+  
 
   const { data: categories } = useQuery<Category[]>({
     queryKey: ["categories"],
@@ -111,7 +121,7 @@ export default function Explore({ filter, search }: ExploreProps) {
               key={book.id}
               book={book}
               handleClick={() => handleBookClick(book.id)}
-              lido={false}
+              lido={book.lido}
             />
           ))}
         </BookList>
@@ -131,6 +141,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
     props: {
       filter,
       search,
+      session: await getServerSession(req, res, buildNextAuthOptions(req, res)),
     },
   };
 };

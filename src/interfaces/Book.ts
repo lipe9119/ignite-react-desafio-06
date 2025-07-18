@@ -10,4 +10,5 @@ export interface Book {
   created_at: Date;
   ratings: { rate: number }[];
   categories: Category[];
+  lido?: boolean;
 }
