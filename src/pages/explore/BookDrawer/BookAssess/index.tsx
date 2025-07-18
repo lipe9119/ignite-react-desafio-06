@@ -2,6 +2,7 @@ import Avatar from "@/components/Avatar";
 import { Button } from "@/components/Button";
 import Stars from "@/components/Stars";
 import TextArea from "@/components/TextArea";
+import { useSession } from "next-auth/react";
 import { Check, X } from "phosphor-react";
 import { useState } from "react";
 import { BookAssessSchema } from "..";
@@ -18,6 +19,9 @@ interface BookAssessProps {
 }
 
 export default function BookAssess({ onClose, onSendAssess }: BookAssessProps) {
+  const session = useSession();
+  const user = session.data?.user;
+
   const [rate, setRate] = useState(0);
   const [comment, setComment] = useState("");
 
@@ -30,8 +34,8 @@ export default function BookAssess({ onClose, onSendAssess }: BookAssessProps) {
     <BookAssessContainer as="form">
       <BookAssessHeader>
         <div>
-          <Avatar src="https://github.com/dornelles08.png" alt="" size="sm" />
-          <span>Felipe Dornelles</span>
+          <Avatar src={user?.avatar_url} alt="" size="sm" />
+          <span>{user?.name}</span>
         </div>
         <Stars
           totalOfStars={0}
