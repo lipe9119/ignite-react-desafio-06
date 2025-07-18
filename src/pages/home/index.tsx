@@ -26,7 +26,7 @@ import {
 
 export default function Home() {
   const session = useSession();
-
+  const user = session.data?.user;
   const isLoged = session.status === "authenticated";
 
   const { data: books } = useQuery<Book[]>({
@@ -43,6 +43,15 @@ export default function Home() {
       const response = await api.get("ratings");
       return response.data;
     },
+  });
+
+  const { data: userLastRating } = useQuery<Rating>({
+    queryKey: ["ratings", user?.id, "last"],
+    queryFn: async () => {
+      const response = await api.get(`users/${user?.id}/ratings/last`);
+      return response.data;
+    },
+    enabled: !!user,
   });
 
   return (
@@ -64,7 +73,7 @@ export default function Home() {
                 </Link>
               </LastReadHeader>
 
-              <LastReadCard />
+              <LastReadCard rating={userLastRating!} />
             </LastRead>
           )}
 

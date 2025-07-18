@@ -23,7 +23,7 @@ export const LastReadHeader = styled("div", {
   alignItems: "center",
   justifyContent: "space-between",
 
-  span: {
+  "span:fist-child": {
     color: "$gray-400",
     fontSize: "$sm",
   },

@@ -12,7 +12,6 @@ export const LastRead = styled("div", {
   flexDirection: "column",
   gap: "$10",
 
-  paddingRight: "$10",
   marginBottom: "$10",
 });
 
