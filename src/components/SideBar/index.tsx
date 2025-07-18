@@ -14,6 +14,7 @@ export default function SideBar() {
   const pathname = router.pathname;
 
   const isLoged = session.status === "authenticated";
+  const user = session.data?.user;
 
   function handleNavigate(path: string) {
     router.push(path);
@@ -51,7 +52,7 @@ export default function SideBar() {
       <SideBarFooter isLoged={isLoged}>
         {isLoged ? (
           <button onClick={handleLogout}>
-            <Avatar alt="" size="sm" src="https://github.com/dornelles08.png" />
+            <Avatar alt="" size="sm" src={user?.avatar_url} />
             Felipe
             <SignOut size={28} />
           </button>
