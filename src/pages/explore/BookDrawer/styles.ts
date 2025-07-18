@@ -67,6 +67,7 @@ export const BookInfosHeader = styled("div", {
   display: "flex",
   alignItems: "center",
   height: "100%",
+  width: "100%",
 
   gap: "$10",
 

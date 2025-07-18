@@ -13,18 +13,22 @@ import {
   InfoDetails,
 } from "./styles";
 
-interface BookDrawerProps {
-  book: any;
-  onClose: () => void;
-}
-
-import bookImage from "@/assets/books/fragmentos-do-horror.png";
 import Stars from "@/components/Stars";
 import { TitleSubtitle } from "@/components/TitleSubtitle";
+import { Book } from "@/interfaces/Book";
+import { Rating } from "@/interfaces/Rating";
+import { api } from "@/lib/axios";
+import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import BookAssess from "./BookAssess";
 import Comment from "./Comment";
 import LoginModal from "./LoginModal";
+
+interface BookDrawerProps {
+  book: Book;
+  onClose: () => void;
+}
 
 export interface BookAssessSchema {
   comment: string;
@@ -34,9 +38,11 @@ export interface BookAssessSchema {
 export default function BookDrawer({ book, onClose }: BookDrawerProps) {
   if (!book) return null;
 
+  const session = useSession();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCommentOpen, setIsCommentOpen] = useState(false);
-  const isLoged = true;
+  const isLoged = session.status === "authenticated";
 
   function handleAssess() {
     if (!isLoged) {
@@ -50,6 +56,22 @@ export default function BookDrawer({ book, onClose }: BookDrawerProps) {
     setIsCommentOpen(false);
   }
 
+  const coverPath = book.cover_url.startsWith("public/")
+    ? book.cover_url.replace("public", "")
+    : book.cover_url;
+  const coverUrl = coverPath.startsWith("/") ? coverPath : `/${coverPath}`;
+  const rate = book.ratings.reduce((acc, rating) => acc + rating.rate, 0) / book.ratings.length;
+
+  const categories = book.categories.map((category) => category.name).join(", ");
+
+  const { data: ratings } = useQuery<Rating[]>({
+    queryKey: ["ratings", book.id],
+    queryFn: async () => {
+      const response = await api.get(`ratings/${book.id}`);
+      return response.data;
+    },
+  });
+
   return (
     <DrawerOverlay>
       <Drawer>
@@ -60,18 +82,14 @@ export default function BookDrawer({ book, onClose }: BookDrawerProps) {
         <DrawerContent>
           <BookInfos>
             <BookInfosHeader>
-              <Image src={bookImage} alt="" width={171} height={242} />
+              <Image src={coverUrl} alt="" width={171} height={242} />
 
               <div>
-                <TitleSubtitle
-                  title="14 Hábitos de Desenvolvedores Altamente Produtivos"
-                  subtitle="Zeno Rocha"
-                  size="md"
-                />
+                <TitleSubtitle title={book.name} subtitle={book.author} size="md" />
 
                 <div>
-                  <Stars totalOfStars={5} />
-                  <span>5 avaliações</span>
+                  <Stars totalOfStars={rate} />
+                  <span>{book.ratings.length} avaliações</span>
                 </div>
               </div>
             </BookInfosHeader>
@@ -79,17 +97,17 @@ export default function BookDrawer({ book, onClose }: BookDrawerProps) {
             <BookInfosFooter>
               <InfoDetails>
                 <BookmarkSimple size={32} />
-                <TitleSubtitle
-                  title="Computação, educação"
-                  subtitle="Categoria"
-                  size="sm"
-                  reverse
-                />
+                <TitleSubtitle title={categories} subtitle="Categoria" size="sm" reverse />
               </InfoDetails>
 
               <InfoDetails>
                 <BookOpen size={32} />
-                <TitleSubtitle title="160" subtitle="Páginas" size="sm" reverse />
+                <TitleSubtitle
+                  title={book.total_pages.toString()}
+                  subtitle="Páginas"
+                  size="sm"
+                  reverse
+                />
               </InfoDetails>
             </BookInfosFooter>
           </BookInfos>
@@ -105,11 +123,9 @@ export default function BookDrawer({ book, onClose }: BookDrawerProps) {
             {isCommentOpen && (
               <BookAssess onClose={() => setIsCommentOpen(false)} onSendAssess={handleSendAssess} />
             )}
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
+            {ratings?.map((rating) => (
+              <Comment key={rating.id} rating={rating} />
+            ))}
           </CommentsContainer>
         </DrawerContent>
       </Drawer>

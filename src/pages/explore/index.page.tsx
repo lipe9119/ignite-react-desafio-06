@@ -32,7 +32,7 @@ const searchSchema = z.object({
 type SearchFormData = z.infer<typeof searchSchema>;
 
 export default function Explore({ filter, search }: ExploreProps) {
-  const [selectedBook, setSelectedBook] = useState<null | string>(null);
+  const [selectedBook, setSelectedBook] = useState<undefined | Book>(undefined);
   const router = useRouter();
   const { register, handleSubmit } = useForm({
     resolver: zodResolver(searchSchema),
@@ -74,6 +74,12 @@ export default function Explore({ filter, search }: ExploreProps) {
     router.push(`/explore?${params.toString()}`);
   }
 
+  function handleBookClick(bookId: string) {
+    const book = books?.find((book) => book.id === bookId);
+    if (!book) return;
+    setSelectedBook(book);
+  }
+
   return (
     <PageContainer>
       <ExplorerHeader>
@@ -104,14 +110,16 @@ export default function Explore({ filter, search }: ExploreProps) {
             <ExplorerCard
               key={book.id}
               book={book}
-              handleClick={() => setSelectedBook(book.id)}
+              handleClick={() => handleBookClick(book.id)}
               lido={false}
             />
           ))}
         </BookList>
       </ExplorerContent>
 
-      {selectedBook && <BookDrawer book={selectedBook} onClose={() => setSelectedBook(null)} />}
+      {selectedBook && (
+        <BookDrawer book={selectedBook} onClose={() => setSelectedBook(undefined)} />
+      )}
     </PageContainer>
   );
 }

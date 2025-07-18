@@ -1,3 +1,5 @@
+import { Category } from "./Category";
+
 export interface Book {
   id: string;
   name: string;
@@ -7,4 +9,5 @@ export interface Book {
   total_pages: number;
   created_at: Date;
   ratings: { rate: number }[];
+  categories: Category[];
 }

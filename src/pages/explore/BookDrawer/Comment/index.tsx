@@ -1,22 +1,28 @@
 import Avatar from "@/components/Avatar";
 import Stars from "@/components/Stars";
 import { TitleSubtitle } from "@/components/TitleSubtitle";
+import { Rating } from "@/interfaces/Rating";
+import dayjs from "dayjs";
 import { CommentContainer, CommentHeader } from "./styles";
 
-export default function Comment() {
+interface CommentProps {
+  rating: Rating;
+}
+
+export default function Comment({ rating }: CommentProps) {
+  if (!rating) return null;
+
+  const date = dayjs(rating.created_at).format("DD/MM/YYYY");
   return (
     <CommentContainer>
       <CommentHeader>
         <div>
-          <Avatar alt="" src="https://github.com/dornelles08.png" size="sm" />
-          <TitleSubtitle title="Felipe Dornelles" subtitle="Hoje" size="sm" />
+          <Avatar alt="" src={rating.user.avatar_url} size="sm" />
+          <TitleSubtitle title={rating.user.name} subtitle={date} size="sm" />
         </div>
-        <Stars totalOfStars={5} />
+        <Stars totalOfStars={rating.rate} />
       </CommentHeader>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima minus id dignissimos
-      perferendis officia placeat deserunt sit cupiditate exercitationem unde molestias magni, autem
-      quisquam quam, facilis beatae voluptate dolor ratione?
+      <p>{rating.description}</p>
     </CommentContainer>
   );
-  CommentContainer;
 }

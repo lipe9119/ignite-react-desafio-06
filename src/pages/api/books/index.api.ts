@@ -38,7 +38,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }),
     },
     include: {
-      categories: true,
+      categories: {
+        select: {
+          category: true,
+        },
+      },
       ratings: {
         select: {
           rate: true,
@@ -47,5 +51,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     },
   });
 
-  return res.json(books);
+  const formattedBooks = books.map((book) => {
+    return {
+      ...book,
+      categories: book.categories.map((category) => category.category),
+    };
+  });
+
+  return res.json(formattedBooks);
 }
