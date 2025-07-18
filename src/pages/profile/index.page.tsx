@@ -6,12 +6,16 @@ import { TitleSubtitle } from "@/components/TitleSubtitle";
 import { Rating } from "@/interfaces/Rating";
 import { User as TypeUser } from "@/interfaces/User";
 import { api } from "@/lib/axios";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { BookmarkSimple, BookOpen, Books, User, UserList } from "phosphor-react";
+import { useForm } from "react-hook-form";
+import z from "zod";
 import { buildNextAuthOptions } from "../api/auth/[...nextauth].api";
 import EvaluatedCard from "./EvaluatedCard";
 import {
@@ -31,17 +35,43 @@ interface UserMetrics {
   mostCategoryReaded: string;
 }
 
-export default function Profile() {
+const searchSchema = z.object({
+  bookName: z.string(),
+});
+
+type SearchFormData = z.infer<typeof searchSchema>;
+
+interface ProfileProps {
+  search: string;
+}
+
+export default function Profile({ search }: ProfileProps) {
+  const router = useRouter();
   const session = useSession();
   const user = session.data?.user;
 
+  const { register, handleSubmit } = useForm({
+    resolver: zodResolver(searchSchema),
+  });
+
   const { data: ratings } = useQuery<Rating[]>({
-    queryKey: ["ratings", user?.id],
+    queryKey: ["ratings", user?.id, search],
     queryFn: async () => {
-      const response = await api.get(`users/${user?.id}/ratings`);
+      const response = await api.get(`users/${user?.id}/ratings`, {
+        params: {
+          search,
+        },
+      });
       return response.data;
     },
   });
+
+  function handleSearch(data: SearchFormData) {
+    const params = new URLSearchParams(router.query as any);
+    params.set("search", data.bookName);
+
+    router.push(`/profile?${params.toString()}`);
+  }
 
   const { data: dbUser } = useQuery<TypeUser>({
     queryKey: ["user", user?.id],
@@ -70,7 +100,9 @@ export default function Profile() {
 
       <ProfileContent>
         <div>
-          <Input placeholder="Buscar livro avaliado" />
+          <form onSubmit={handleSubmit(handleSearch)}>
+            <Input placeholder="Buscar livro avaliado" {...register("bookName")} />
+          </form>
 
           <BookList>
             {ratings?.map((rating) => (
@@ -136,10 +168,12 @@ export default function Profile() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
+  const search = query.search || "";
   return {
     props: {
       session: await getServerSession(req, res, buildNextAuthOptions(req, res)),
+      search,
     },
   };
 };
