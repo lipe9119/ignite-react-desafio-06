@@ -15,6 +15,8 @@ export const ExplorerContent = styled("div", {
   flexDirection: "column",
 
   gap: "$10",
+
+  paddingBottom: "$10",
 });
 
 export const FiltersContainer = styled("div", {

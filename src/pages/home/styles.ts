@@ -37,9 +37,6 @@ export const Recents = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: "$10",
-
-  // flex: "1",
-  // overflowY: "auto",
 });
 
 export const RecentsContent = styled("div", {
