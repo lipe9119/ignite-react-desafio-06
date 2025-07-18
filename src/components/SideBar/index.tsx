@@ -21,7 +21,9 @@ export default function SideBar() {
   }
 
   async function handleLogout() {
-    await signOut();
+    await signOut({
+      callbackUrl: "/",
+    });
   }
 
   return (

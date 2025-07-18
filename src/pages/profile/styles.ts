@@ -3,6 +3,7 @@ import { styled } from "@/styles";
 export const ProfileContent = styled("div", {
   display: "grid",
   gridTemplateColumns: "3fr 1fr",
+  marginBottom: "$10",
 
   gap: "$10",
 
