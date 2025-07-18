@@ -4,6 +4,7 @@ import { styled } from "@/styles";
 export const CommentContainer = styled(Box, {
   display: "flex",
   flexDirection: "column",
+  alignItems: "start",
   gap: "$5",
 });
 

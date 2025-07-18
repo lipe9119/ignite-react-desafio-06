@@ -18,6 +18,7 @@ import { TitleSubtitle } from "@/components/TitleSubtitle";
 import { Book } from "@/interfaces/Book";
 import { Rating } from "@/interfaces/Rating";
 import { api } from "@/lib/axios";
+import { queryClient } from "@/lib/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -31,7 +32,7 @@ interface BookDrawerProps {
 }
 
 export interface BookAssessSchema {
-  comment: string;
+  description: string;
   rate: number;
 }
 
@@ -43,6 +44,7 @@ export default function BookDrawer({ book, onClose }: BookDrawerProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const isLoged = session.status === "authenticated";
+  const user = session.data?.user;
 
   function handleAssess() {
     if (!isLoged) {
@@ -52,8 +54,17 @@ export default function BookDrawer({ book, onClose }: BookDrawerProps) {
     setIsCommentOpen(true);
   }
 
-  function handleSendAssess(assess: BookAssessSchema) {
-    setIsCommentOpen(false);
+  async function handleSendAssess(assess: BookAssessSchema) {
+    const { data: rating } = await api.post("ratings", {
+      description: assess.description,
+      rate: assess.rate,
+      user_id: user?.id,
+      book_id: book.id,
+    });
+
+    await queryClient.invalidateQueries({
+      queryKey: ["ratings", book.id]
+    });
   }
 
   const coverPath = book.cover_url.startsWith("public/")

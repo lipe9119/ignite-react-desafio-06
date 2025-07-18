@@ -1,5 +1,4 @@
 import { styled } from "@stitches/react";
-import { useState } from "react";
 
 const Container = styled("div", {
   position: "relative",
@@ -40,19 +39,17 @@ interface TextAreaProps extends React.ComponentProps<typeof TextAreaInput> {
   maxLength?: number;
 }
 
-export default function TextArea({ maxLength = 450 }: TextAreaProps) {
-  const [text, setText] = useState("");
-
+export default function TextArea({ maxLength = 450, ...rest }: TextAreaProps) {
+  const text = rest.value as string;
   return (
     <Container>
       <TextAreaInput
         maxLength={maxLength}
         placeholder="Escreva sua avaliação"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        {...rest}
       />
       <CharCount>
-        {text.length}/{maxLength}
+        {text?.length}/{maxLength}
       </CharCount>
     </Container>
   );

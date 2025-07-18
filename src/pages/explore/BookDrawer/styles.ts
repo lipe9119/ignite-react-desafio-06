@@ -53,6 +53,7 @@ export const DrawerContent = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: "$5",
+  width: "100%",
 });
 
 export const BookInfos = styled(Box, {
@@ -76,11 +77,6 @@ export const BookInfosHeader = styled("div", {
     flexDirection: "column",
     justifyContent: "space-between",
     height: "100%",
-
-    span: {
-      fontSize: "$sm",
-      color: "$gray-400",
-    },
   },
 });
 
