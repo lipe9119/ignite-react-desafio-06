@@ -19,6 +19,7 @@ export const ExplorerContent = styled("div", {
 
 export const FiltersContainer = styled("div", {
   display: "flex",
+  flexWrap: "wrap",
 
   gap: "$4",
 });
@@ -50,4 +51,12 @@ export const BookList = styled("div", {
   gridTemplateColumns: "repeat(3, 1fr)",
 
   gap: "$5",
+
+  "@media (max-width: 1131px)": {
+    gridTemplateColumns: "repeat(2, 1fr)",
+  },
+
+  "@media (max-width: 863px)": {
+    gridTemplateColumns: "1fr",
+  },
 });
