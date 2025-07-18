@@ -66,6 +66,7 @@ export const FormButtons = styled("div", {
     display: "flex",
     alignItems: "center",
     justifyContent: "start",
-    maxWidth: "19rem",
+    maxWidth: "18rem",
+    padding: "0 1.5rem",
   },
 });
